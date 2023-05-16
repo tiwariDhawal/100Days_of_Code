@@ -114,19 +114,19 @@ class Solution{
 
         {
 
-           return deleteNode(root->left,K); 
+           root  = deleteNode(root->left,K); 
 
         }
 
-        if(root->data<K)
+        else
 
         {
 
             root->right = deleteNode(root->right,K);
 
-            return root;
 
         }
+        return root;
     }
 };
 
