@@ -120,16 +120,14 @@ private:
         }
         
     }
-    void rightTraversal(Node *root,vector<int>&ans){
+    void rightTraversal(Node *root , vector<int>&ans){
         if(root == NULL || (root -> left == NULL && root -> right == NULL)){
-            return;
+            return ;
         }
         if(root -> right){
             rightTraversal(root -> right,ans);
-            
         }
         else{
-            
             rightTraversal(root -> left,ans);
         }
         ans.push_back(root -> data);
@@ -138,16 +136,15 @@ private:
         if(root == NULL){
             return;
         }
-        if((root -> left == NULL && root -> right == NULL)){
+        if(root -> left == NULL && root -> right == NULL){
             ans.push_back(root -> data);
             return;
-            
         }
         if(root -> left){
             leafTraversal(root -> left,ans);
         }
         if(root -> right){
-            leafTraversal(root -> right, ans);
+            leafTraversal(root -> right,ans);
         }
     }
 public:
@@ -158,16 +155,21 @@ public:
         if(root == NULL){
             return ans;
         }
-        ans.push_back(root -> data);
-        //check for the left part but dont include the leaf nodes 
-        leftTraversal(root -> left,ans);
-        //check for the leaf nodes now 
+        ans.push_back(root-> data);
+        
+        //left
+        leftTraversal(root-> left, ans);
+        
+        //leaf left
         leafTraversal(root -> left, ans);
+        
+        //leaf right
         leafTraversal(root -> right,ans);
-        //check for the right nodes but dont include the leaf nodes
+        
         rightTraversal(root -> right,ans);
         
         return ans;
+        
     }
 };
 
