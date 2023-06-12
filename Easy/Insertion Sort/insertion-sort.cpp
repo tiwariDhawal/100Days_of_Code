@@ -26,16 +26,22 @@ class Solution
     void insertionSort(int arr[], int n)
     {
         //code here
-        for(int i = 0;i<= n-1;i++){
-            int j = i;
-            while(j > 0 && arr[j-1] > arr[j]){
-                int temp = arr[j-1];
-                arr[j-1] = arr[j];
-                arr[j] = temp;
-                // swap(arr[j-1],arr[j]);
-                j--;
-            }
+        if(n == 1){
+            return;
         }
+        
+        int j = 0;
+        while(j < n-1){
+            if(arr[j+1] <  arr[j]){
+                int temp = arr[j+1];
+                arr[j+1] = arr[j];
+                arr[j] = temp;
+                // swap(arr[j+1],arr[j]);
+            }
+            j++;
+        }
+        
+        insertionSort(arr,n-1);
     }
 };
 
