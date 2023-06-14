@@ -11,16 +11,19 @@ class Solution{
 public:
     int countZeroes(int arr[], int n) {
         // code here
-        unordered_map<int,int>mapping;
-        for(int i = 0;i< n;i++){
-            mapping[arr[i]]++;
-        }
-        for(auto it : mapping){
-            if(it.first == 0){
-                return it.second;
+        int s= 0;
+        int e = n - 1;
+        while(s <= e){
+            int mid = s + (e-s)/2;
+            if(arr[mid] == 1){
+                s = mid + 1;
+            }        
+            else{
+                e = mid - 1;
             }
+            
         }
-        return 0;
+        return n-s;
         
     }
 };
