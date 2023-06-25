@@ -57,16 +57,18 @@ public:
 void QueueStack :: push(int x)
 {
         // Your Code
+       q2.push(x);
+       
+       //then put all the elements in the q2
        while(!q1.empty()){
-           int k = q1.front();
+           q2.push(q1.front());
            q1.pop();
-           q2.push(k);
        }
-       q1.push(x);
+       
+       //then put in q1 back
        while(!q2.empty()){
-           int k = q2.front();
+           q1.push(q2.front());
            q2.pop();
-           q1.push(k);
        }
        
         
