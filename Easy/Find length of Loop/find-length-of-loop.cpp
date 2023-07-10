@@ -72,51 +72,50 @@ struct Node {
 };
 
 */
- Node *floydDetection(Node *head){
-        Node* slow = head;
-        Node *fast = head;
-        while(fast!= NULL && fast -> next != NULL){
-            fast = fast -> next -> next;
-            slow = slow -> next;
-            if(fast == slow){
-                return slow;
-            }
+
+//Function to find the length of a loop in the linked list.
+Node *floydDetection(Node *head){
+    Node *slow = head;
+    Node *fast = head;
+    while(fast != NULL && fast -> next != NULL){
+        slow  = slow -> next;
+        fast = fast -> next -> next;
+        if(slow == fast){
+            return slow;
         }
-        return NULL;
-
     }
-Node *detectCycle(Node *head) {
-        Node *slow = head;
-        Node *intersection = floydDetection(head);
-
-        if(intersection == 0){
+    return NULL;
+}
+Node *detectCycle(Node *head){
+    if(head == NULL){
+        return NULL;
+    }
+    Node *intersection = floydDetection(head);
+    Node *slow = head;
+    if(intersection == 0){
             return NULL;
         }
         while(intersection != slow){
             slow = slow -> next;
             intersection = intersection -> next;
         }
-        return slow;
-        
+     return slow;
 }
-//Function to find the length of a loop in the linked list.
 int countNodesinLoop(struct Node *head)
 {
-    // Code here
     if(head == NULL){
         return 0;
     }
-    Node *startOfLoop = detectCycle(head);
-    if(startOfLoop == NULL){
+    if(detectCycle(head) == NULL){
         return 0;
     }
-    Node *temp = startOfLoop;
+    // Code here
     int count = 0;
-    while(temp->next != startOfLoop){
-        // startOfLoop = startOfLoop -> next;
+    Node *slow = detectCycle(head);
+    Node *temp = slow;
+    while(temp -> next != slow ){
         temp = temp -> next;
         count++;
     }
     return count+1;
-    
 }
