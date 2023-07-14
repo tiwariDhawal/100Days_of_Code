@@ -109,6 +109,9 @@ int main() {
 
 
 // Function to delete a node from BST.
+
+
+// Function to delete a node from BST.
 Node *minVal(Node *root){
     Node *temp = root;
     while(temp -> left != NULL){
