@@ -46,6 +46,33 @@ class Solution {
         }
         return dp[n-1][k];
     }
+    int findWaysSpace(vector<int>& nums, int k) {
+        
+        int n = nums.size();
+        vector<int>prev(k+1,0),curr(k+1,0);
+        
+        //base case
+        if(nums[0] == 0)prev[0] = 2;
+        
+        else prev[0] = 1;
+        //nums[0] = 0
+        if(nums[0] != 0 && nums[0] <= k)prev[nums[0]] = 1;
+        
+        int mod = (int)(1e9 + 7);
+        for(int i=1; i<n; i++) {
+            for(int sum=0; sum<=k; sum++) {
+                int notTake = prev[sum];
+                
+                int take = 0;
+                if(nums[i] <= sum)
+                take = prev[sum-nums[i]];
+                
+                curr[sum] = (notTake+take)%mod;
+            }
+            prev = curr;
+        }
+        return prev[k];
+    }
     int countPartitions(int n, int d, vector<int>& arr) {
         // Code here
         int totalSum = 0;
@@ -56,7 +83,8 @@ class Solution {
         int s2 = (totalSum - d)/2;
         // vector<vector<int>>dp(n,vector<int>(s2+1,-1));
         // return helper(arr,n-1,s2,dp);
-        return findWays(arr,s2);
+        // return findWays(arr,s2);
+        return findWaysSpace(arr,s2);
        
     }
 };
