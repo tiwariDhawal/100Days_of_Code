@@ -21,8 +21,25 @@ class Solution {
     long long int count(int coins[], int N, int sum) {
 
         // code here.
-        vector<vector<long long >>dp(N+1,vector<long long>(sum+1,-1));
-        return f(N-1,sum,coins,dp);
+        // vector<vector<long long >>dp(N+1,vector<long long>(sum+1,-1));
+        // return f(N-1,sum,coins,dp);
+        //tabulation
+        
+        vector<vector<long long>>dp(N+1,vector<long long>(sum+1,0));
+        for(int T= 0;T<= sum;T++){
+            dp[0][T] = (T % coins[0] == 0);
+        }
+        for(int ind = 1;ind < N;ind++){
+            for(int T = 0;T <= sum;T++){
+                long long  notTake = dp[ind - 1][T];
+                long long take = 0;
+                if(coins[ind] <= T){
+                    take = dp[ind][T - coins[ind]];
+                }
+                dp[ind][T] = take + notTake;
+            }
+        }
+        return dp[N-1][sum];
     }
 };
 
