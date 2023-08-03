@@ -20,14 +20,58 @@ class Solution{
 	    }
 	    return dp[ind][target] = min(take,notTake);
 	}
+	
 	int MinCoin(vector<int>nums, int amount)
 	{
 	    // Code here
+	    //Space Optimization
 	    int n = nums.size();
-	    vector<vector<int>>dp(n,vector<int>(amount+1,-1));
-	    int ans = f(n-1,amount,nums,dp);
+	    vector<int>prev(amount+1,0),curr(amount+1,0);
+	    for(int T = 0;T<= amount;T++){
+	        if(T %nums[0] == 0)prev[T] = T/ nums[0];
+	        else prev[T] = 1e9;
+	    }
+	    for(int ind = 1;ind < n;ind++){
+	        for(int T = 0;T <= amount;T++){
+	            int notTake = 0  + prev[T];
+	            int take = INT_MAX;
+	            if(nums[ind] <= T){
+	                take = 1 + curr[T - nums[ind]];
+	            }
+	            curr[T] = min(take,notTake);
+	        }
+	        prev = curr;
+	    }
+	    int ans = prev[amount];
 	    if(ans >= 1e9)return -1;
 	    return ans;
+	    //Tabulation
+	   // int n = nums.size();
+	   // vector<vector<int>>dp(n,vector<int>(amount+1,0));
+	   // for(int T = 0;T<= amount;T++){
+	   //     if(T %nums[0] == 0)dp[0][T] = T/ nums[0];
+	   //     else dp[0][T] = 1e9;
+	   // }
+	   // for(int ind = 1;ind < n;ind++){
+	   //     for(int T = 0;T <= amount;T++){
+	   //         int notTake = 0  + dp[ind-1][T];
+	   //         int take = INT_MAX;
+	   //         if(nums[ind] <= amount){
+	   //             take = 1 + dp[ind][T - nums[ind]];
+	   //         }
+	   //         dp[ind][T] = min(take,notTake);
+	   //     }
+	   // }
+	   // int ans = dp[n-1][amount];
+	   // if(ans >= 1e9)return -1;
+	   // return ans;
+	   
+	   //Memo
+	   // int n = nums.size();
+	   // vector<vector<int>>dp(n,vector<int>(amount+1,-1));
+	   // int ans = f(n-1,amount,nums,dp);
+	   // if(ans >= 1e9)return -1;
+	   // return ans;
 	}
 };
 
