@@ -6,39 +6,24 @@ using namespace std;
 class Solution {
   public:
     // Function to return a list containing the DFS traversal of the graph.
-   
-  private:
-    void dfs(int node,vector<int>&visited,vector<int>adj[],vector<int>&ans){
-        ans.push_back(node);
-        visited[node] = 1;
-        for(auto neighbour : adj[node]){
-            if(!visited[neighbour]){
-                dfs(neighbour,visited,adj,ans);
+    void dfs(int node,vector<int>adj[],int vis[],vector<int> &ls){
+        vis[node] = 1;
+        ls.push_back(node);
+        for(auto it:adj[node]){
+            if(!vis[it]){
+                dfs(it,adj,vis,ls);
                 
             }
         }
-        
-        
     }
-  public:
-    // Function to return a list containing the DFS traversal of the graph.
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
         // Code here
-        //Algo - First mark everyone visited 
-        vector<int>ans;
-        vector<int>visited(V,0);
-        
-        //if one element then check for it or check for all the elements 
-        // for(int i = 0;i < V;i++){
-        //     if(!visited[i]){
-        //         dfs(0,visited,adj,V);
-        //     }
-        // }
-        //but here its only for one element 
-        dfs(0,visited,adj,ans);
-        return ans;
+        int vis[V] = {0};
+        int start = 0;
+        vector<int>ls;
+        dfs(start,adj,vis,ls);
+        return ls;
     }
-
 };
 
 //{ Driver Code Starts.
