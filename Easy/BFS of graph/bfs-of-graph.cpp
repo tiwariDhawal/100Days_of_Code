@@ -10,10 +10,8 @@ class Solution {
         // Code here
         int vis[V] = {0};
         vis[0] = 1;
-        
         queue<int>q;
         q.push(0);
-        
         vector<int>bfs;
         while(!q.empty()){
             int node = q.front();
@@ -25,11 +23,11 @@ class Solution {
                     vis[it] = 1;
                     q.push(it);
                 }
-            
             }
         }
         return bfs;
     }
+    
 };
 
 //{ Driver Code Starts.
