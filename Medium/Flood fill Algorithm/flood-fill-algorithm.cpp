@@ -24,12 +24,13 @@ public:
         // Code here 
         int iniColor = image[sr][sc];
         vector<vector<int>>ans = image;
-        int delRow[] = {-1,0,+1,0};
-        int delCol[] = {0,-1,0,+1};
+        int delRow[] = {-1,0,1,0};
+        int delCol[] = {0,1,0,-1};
         dfs(sr,sc,ans,image,newColor,delRow,delCol,iniColor);
         return ans;
     }
 };
+
 
 //{ Driver Code Starts.
 int main(){
