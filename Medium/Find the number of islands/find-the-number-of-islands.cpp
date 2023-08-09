@@ -6,30 +6,32 @@ using namespace std;
 class Solution {
   public:
     // Function to find the number of islands.
-    void bfs(int row, int col, vector<vector<int>>&vis,vector<vector<char>>&grid){
-        int n= grid.size();
-        int m = grid[0].size();
-        vis[row][col] = 1;
+    void bfs(int i,int j,vector<vector<int>>&vis,vector<vector<char>>grid){
+        int n  = grid.size();
+        int m  = grid[0].size();
+        vis[i][j] = 1;
         queue<pair<int,int>>q;
-        q.push({row,col});
+        q.push({i,j});
+        //Step2:Making the visited array dont alter the given array
+        // int delRow[] = {-1,0,1,0};
+        // int delCol[] = {0,1,0,-1};
         while(!q.empty()){
             int row = q.front().first;
             int col = q.front().second;
             q.pop();
-            
-            for(int delRow = -1;delRow <= 1;delRow++){
-                for(int delCol = -1;delCol <= 1;delCol++){
-                   int nrow = row + delRow;
-                   int ncol = col + delCol;
-                   if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && grid[nrow][ncol] == '1' && !vis[nrow][ncol]){
-                       vis[nrow][ncol] = 1;
-                       q.push({nrow,ncol});
-                   }
+            for(int i = -1;i<=1;i++){
+                for(int j = -1;j <= 1;j++){
+                    
+                    int nrow = row + i;
+                    int ncol = col + j;
+                    
+                    if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && !vis[nrow][ncol] && grid[nrow][ncol] == '1'){
+                        q.push({nrow,ncol});
+                        vis[nrow][ncol] = 1;
+                    }
                 }
             }
         }
-        
-        
     }
     int numIslands(vector<vector<char>>& grid) {
         // Code here
@@ -47,6 +49,8 @@ class Solution {
         }
         return count;
         
+        //Step3:Counting the non visited position in the matrix by the following coordinates 
+        //Step2:Making the queue for the traversal and using the bfs
     }
 };
 
