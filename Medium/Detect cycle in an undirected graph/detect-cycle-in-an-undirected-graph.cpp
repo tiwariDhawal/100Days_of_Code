@@ -16,12 +16,12 @@ class Solution {
             int parent = q.front().second;
             q.pop();
             
-            for(auto adjacentNode:adj[node]){
-                if(!vis[adjacentNode]){
-                    vis[adjacentNode] = 1;
-                    q.push({adjacentNode,node});
+            for(auto it:adj[node]){
+                if(!vis[it]){
+                    vis[it] = 1;
+                    q.push({it,node});
                 }
-                else if(parent != adjacentNode){
+                else if(parent != it){
                     return true;
                     
                 }
@@ -50,6 +50,7 @@ class Solution {
         
     }
 };
+
 
 //{ Driver Code Starts.
 int main() {
