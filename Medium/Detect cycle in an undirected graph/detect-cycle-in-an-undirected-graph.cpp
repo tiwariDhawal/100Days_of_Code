@@ -4,41 +4,32 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
+  private: 
+    bool dfs(int node, int parent, int vis[], vector<int> adj[]) {
+        vis[node] = 1; 
+        // visit adjacent nodes
+        for(auto adjacentNode: adj[node]) {
+            // unvisited adjacent node
+            if(!vis[adjacentNode]) {
+                if(dfs(adjacentNode, node, vis, adj) == true) 
+                    return true; 
+            }
+            // visited node but not a parent node
+            else if(adjacentNode != parent) return true; 
+        }
+        return false; 
+    }
   public:
     // Function to detect cycle in an undirected graph.
-    // bool detect(int src,int V,vector<int>adj[],int vis[]){
-    //     vis[src] = 1;
-    //     queue<pair<int,int>>q;
-    //     q.push({src,-1});
-        
-    //     while(!q.empty()){
-    //         int node = q.front().first;
-    //         int parent = q.front().second;
-    //         q.pop();
-            
-    //         for(auto it:adj[node]){
-    //             if(!vis[it]){
-    //                 vis[it] = 1;
-    //                 q.push({it,node});
-    //             }
-    //             else if(parent != it){
-    //                 return true;
-                    
-    //             }
-    //         }
-            
-    //     }
-    //     return false;
-    // }
-    bool detect(int src,int V,vector<int>adj[],int vis[]){
+    bool detect(int src,int vis[],vector<int>adj[]){
         vis[src] = 1;
         queue<pair<int,int>>q;
         q.push({src,-1});
-        
         while(!q.empty()){
             int node = q.front().first;
             int parent = q.front().second;
             q.pop();
+            
             for(auto it : adj[node]){
                 if(!vis[it]){
                     vis[it] = 1;
@@ -52,24 +43,17 @@ class Solution {
         return false;
     }
     bool isCycle(int V, vector<int> adj[]) {
-        // Code here
-        //step 1:making a vis array map adj list
-        //step 2:making a queue to check whether the element have its parent
-        //step 3:traverse it
-        int vis[V] = {0};
-        for(int i = 0;i< V;i++){
-            if(!vis[i]){
-                if(detect(i,V, adj, vis)) return true; 
-            }
-        }
-        return false;
-        
-        
-        
-            
-        
-        
+       int vis[V] = {0}; 
+       // for graph with connected components 
+       for(int i = 0;i<V;i++) {
+           if(!vis[i]) {
+            //   if(dfs(i, -1, vis, adj) == true) return true; 
+                if( detect(i,vis,adj))return true;
+           }
+       }
+       return false; 
     }
+
 };
 
 
