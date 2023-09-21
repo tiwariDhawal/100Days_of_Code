@@ -34,55 +34,26 @@ class Solution {
     }
     vector<int> eventualSafeNodes(int V, vector<int> adj[]) {
         // code here
-        // vector<int>vis(V,0);
-        // vector<int>check(V,0);
-        // vector<int>pathVis(V,0);
-        // vector<int>safeNodes;
-        // for(int i = 0;i< V;i++){
-        //     if(!vis[i]){
-        //         dfs(i,adj,vis,pathVis,check);
-        //     }
-        // }
-        // for(int i = 0;i< V;i++){
-        //     if(check[i]){
-        //         safeNodes.push_back(i);
-        //     }
-        // }
-        // return safeNodes;
-        
-        vector<int>adjRev[V];
+        vector<int>vis(V,0);
+        vector<int>check(V,0);
+        vector<int>pathVis(V,0);
         vector<int>safeNodes;
-        int indegree[V] = {0};
-        for(int i = 0;i<V;i++){
-            //i -> it
-            //it -> i
-            for(auto it:adj[i]){
-                //reversing the links
-                adjRev[it].push_back(i);
-                indegree[i]++;
+        for(int i = 0;i< V;i++){
+            if(!vis[i]){
+                dfs(i,adj,vis,pathVis,check);
             }
         }
-        queue<int>q;
-        for(int i= 0;i<V;i++){
-            if(indegree[i] == 0){
-                q.push(i);
+        for(int i = 0;i< V;i++){
+            if(check[i]){
+                safeNodes.push_back(i);
             }
         }
-        while(!q.empty()){
-            int node = q.front();
-            q.pop();
-            safeNodes.push_back(node);
-            for(auto it:adjRev[node]){
-                indegree[it]--;
-                if(indegree[it] == 0){
-                    q.push(it);
-                }
-            }
-        }
-        sort(safeNodes.begin(),safeNodes.end());
         return safeNodes;
+        
+        
     }
 };
+
 
 
 //{ Driver Code Starts.
