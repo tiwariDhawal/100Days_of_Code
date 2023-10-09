@@ -5,18 +5,18 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 public:
-    void dfs(int row , int col,vector<vector<int>>&ans,
-    vector<vector<int>>&image,int newColor,int delRow[],int delCol[],int iniColor){
-        ans[row][col]= newColor;
+    void dfs(int iniColor,int row,int col,int delRow[],int delCol[],vector<vector<int>>&ans,
+    int newColor,vector<vector<int>>&image){
         int n = image.size();
         int m = image[0].size();
+        ans[row][col] = newColor;
         for(int i = 0;i< 4;i++){
             int nrow = row + delRow[i];
             int ncol = col + delCol[i];
             
-            if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && image[nrow][ncol] == iniColor
-            && ans[nrow][ncol] != newColor){
-                dfs(nrow,ncol,ans,image,newColor,delRow,delCol,iniColor);
+            if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && ans[nrow][ncol] != newColor && 
+            image[nrow][ncol] == iniColor){
+                dfs(iniColor,nrow,ncol,delRow,delCol,ans,newColor,image);
             }
         }
     }
@@ -26,11 +26,12 @@ public:
         vector<vector<int>>ans = image;
         int delRow[] = {-1,0,1,0};
         int delCol[] = {0,1,0,-1};
-        dfs(sr,sc,ans,image,newColor,delRow,delCol,iniColor);
+        dfs(iniColor,sr,sc,delRow,delCol,ans,newColor,image);
         return ans;
+        
+        
     }
 };
-
 
 //{ Driver Code Starts.
 int main(){
